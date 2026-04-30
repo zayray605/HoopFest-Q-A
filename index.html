@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HoopFest FAQ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b35, #f7931e, #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-bottom: 25px;
+        }
+
+        /* Event Cards */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .event-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .event-card.west {
+            border-left: 4px solid #ff6b35;
+        }
+
+        .event-card.east {
+            border-left: 4px solid #00d4ff;
+        }
+
+        .event-location {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .event-card.west .event-location {
+            color: #ff6b35;
+        }
+
+        .event-card.east .event-location {
+            color: #00d4ff;
+        }
+
+        .event-dates {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            margin-bottom: 5px;
+        }
+
+        .event-regions {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-color: #ff6b35;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 30px;
+        }
+
+        .faq-category-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid #ffcc00;
+        }
+
+        .faq-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        .faq-question {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #ff6b35;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+            padding: 20px 25px;
+        }
+
+        .faq-answer p {
+            color: #c0c0c0;
+            line-height: 1.7;
+        }
+
+        .faq-answer a {
+            color: #00d4ff;
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Highlights */
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .highlight-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .highlight-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .highlight-text {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        /* Links Section */
+        .links-section {
+            background: linear-gradient(145deg, rgba(255,107,53,0.1), rgba(0,212,255,0.1));
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .links-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .link-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .link-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .link-btn.primary {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+        }
+
+        /* Registration Deadline */
+        .deadline-banner {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        /* Hidden category */
+        .faq-section.hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .faq-question {
+                font-size: 0.95rem;
+                padding: 15px 18px;
+            }
+            
+            .tab-btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">🏀 HoopFest</h1>
+            <p class="tagline">Canada Ismaili Basketball Tournament 2026</p>
+        </header>
+
+        <!-- Event Cards -->
+        <div class="events-grid">
+            <div class="event-card west">
+                <div class="event-location">HoopFest West</div>
+                <div class="event-dates">📅 July 3–5, 2026</div>
+                <div class="event-dates">📍 Edmonton</div>
+                <div class="event-regions">BC • Edmonton • Prairies</div>
+            </div>
+            <div class="event-card east">
+                <div class="event-location">HoopFest East</div>
+                <div class="event-dates">📅 July 10–12, 2026</div>
+                <div class="event-dates">📍 Toronto</div>
+                <div class="event-regions">Toronto • NE/SW Ontario • Quebec • Maritimes</div>
+            </div>
+        </div>
+
+        <!-- Deadline Banner -->
+        <div class="deadline-banner">
+            ⏰ Registration closes June 1st, 2026
+        </div>
+
+        <!-- What You Get -->
+        <div class="highlights">
+            <div class="highlight-item">
+                <div class="highlight-icon">👕</div>
+                <div class="highlight-text">Event Shirt</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">🎒</div>
+                <div class="highlight-text">Swag Bag</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">🍽️</div>
+                <div class="highlight-text">2 Lunches</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon">📸</div>
+                <div class="highlight-text">Social Recognition</div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="tab-btn active" data-category="all">All Questions</button>
+            <button class="tab-btn" data-category="general">General</button>
+            <button class="tab-btn" data-category="registration">Registration</button>
+            <button class="tab-btn" data-category="logistics">Logistics</button>
+            <button class="tab-btn" data-category="other">Other</button>
+        </div>
+
+        <!-- FAQ Sections -->
+        <div id="faq-container">
+            <!-- General Information -->
+            <div class="faq-section" data-category="general">
+                <h2 class="faq-category-title">General Information</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What is HoopFest?</div>
+                    <div class="faq-answer">
+                        <p>HoopFest West and HoopFest East is a platform for both experienced and emerging basketball players for the Canada Ismaili Jamat and multifaith family members to participate and showcase their skills. We want to limit travel as much as possible and allow regional participation while creating a festival-type atmosphere to celebrate our players in the game we love. This is the first year we are offering HoopFest and hope to offer this annually in different cities in Canada.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What is the difference between HoopFest East and HoopFest West?</div>
+                    <div class="faq-answer">
+                        <p><strong>HoopFest West</strong> takes place in Edmonton from July 3–5.<br><br>
+                        <strong>HoopFest East</strong> takes place in Toronto from July 10–12.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I attend HoopFest if I don't live in the host city?</div>
+                    <div class="faq-answer">
+                        <p>Yes, you can! HoopFest East is intended for the regions of Toronto, Northeast Ontario, Southwest Ontario, Quebec, and the Maritimes. HoopFest West is intended for the regions of BC, Edmonton, and Prairies.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What do I get when I register?</div>
+                    <div class="faq-answer">
+                        <p>Athletes will receive a shirt, a bag, 2 lunches, social media recognition, and more!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration -->
+            <div class="faq-section" data-category="registration">
+                <h2 class="faq-category-title">Registration</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can my team be made of players from different regions?</div>
+                    <div class="faq-answer">
+                        <p>Yes, teams can include players from different regions.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I register without a team?</div>
+                    <div class="faq-answer">
+                        <p>Yes! Individuals (free agents) can sign up and will be placed on teams, subject to player registration availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Will I get a refund if you can't find me a team?</div>
+                    <div class="faq-answer">
+                        <p>Yes, you will receive a full refund if we cannot place you on a team.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I request to play with a friend?</div>
+                    <div class="faq-answer">
+                        <p>Yes, there is a place to request a friend or family member on the registration form. It's recommended to form a team instead of registering as an individual. We will do our best to accommodate individual requests subject to player availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">I'm in the United States — can I participate?</div>
+                    <div class="faq-answer">
+                        <p>We are hoping to open up spots to the US Jamat in the coming weeks, should spaces still be available. Stay tuned for updates!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logistics -->
+            <div class="faq-section" data-category="logistics">
+                <h2 class="faq-category-title">Logistics & Basketball Operations</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">Why are some divisions 3v3 and others 5v5?</div>
+                    <div class="faq-answer">
+                        <p>We based divisions on interest from the Jamat during pre-registration. These choices were made directly due to the interest form responses by those ages and genders.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Will HoopFest come to my city one day?</div>
+                    <div class="faq-answer">
+                        <p>We are hoping to move locations in both the West and East within the country based on facility availability.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I play in more than one division?</div>
+                    <div class="faq-answer">
+                        <p>No, athletes can only participate in one division.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other -->
+            <div class="faq-section" data-category="other">
+                <h2 class="faq-category-title">Other</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">I love art, music, and dance — can I still participate?</div>
+                    <div class="faq-answer">
+                        <p>Yes! Our team is currently working on building opportunities for artists and this information will be shared through our Instagram and WhatsApp channels.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I volunteer at HoopFest?</div>
+                    <div class="faq-answer">
+                        <p>We would love to have you volunteer for the tournament! Keep an eye out on our Instagram and WhatsApp channels in the coming weeks for more information.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Section -->
+        <div class="links-section">
+            <h3 class="links-title">Stay Connected</h3>
+            <div class="links-grid">
+                <a href="[app.amilia.com](https://app.amilia.com/store/en/iicanada/shop/programs/130623)" class="link-btn primary" target="_blank">
+                    📝 Register Now
+                </a>
+                <a href="[instagram.com](https://www.instagram.com/canadaismailibasketball)" class="link-btn" target="_blank">
+                    📷 Instagram
+                </a>
+                <a href="[chat.whatsapp.com](https://chat.whatsapp.com/C84faIXbhle1layQ8c8Rey)" class="link-btn" target="_blank">
+                    💬 WhatsApp Group
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const wasOpen = item.classList.contains('open');
+                
+                // Close all items
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                
+                // Open clicked item if it wasn't already open
+                if (!wasOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // Category Filter Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.dataset.category;
+                
+                // Show/hide sections
+                document.querySelectorAll('.faq-section').forEach(section => {
+                    if (category === 'all' || section.dataset.category === category) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+                
+                // Close all open items when switching
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            });
+        });
+    </script>
+</body>
+</html>
