@@ -311,6 +311,92 @@
                 font-size: 0.85rem;
             }
         }
+
+.info-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.info-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    width: 280px;
+    flex: 1;
+    min-width: 260px;
+}
+
+.info-card.wide {
+    width: 100%;
+}
+
+.info-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.division-columns {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.division-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.division-header {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+}
+
+.info-card ul li {
+    margin-bottom: 6px;
+    color: #d0d0d0;
+}
+
+.sub-header {
+    margin-top: 10px;
+    margin-bottom: 8px;
+    color: #00d4ff;
+}
+
+.age-note {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #ccc;
+    font-style: italic;
+}
+
+.info-column {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.info-card.small {
+    width: 280px; /* keeps them nicely sized */
+}
+
     </style>
 </head>
 <body>
@@ -335,7 +421,79 @@
                 <div class="event-dates">📍 Toronto</div>
                 <div class="event-regions">Toronto • NE/SW Ontario • Quebec • Maritimes</div>
             </div>
+        </div><!-- end of events-grid -->
+
+<!-- NEW INFO BOXES -->
+<div class="info-boxes">
+
+    <!-- Divisions Box (full width) -->
+    <div class="info-card wide">
+        <h3 class="info-title">Divisions</h3>
+
+        <div class="division-columns">
+            <div class="division-column">
+                <h4 class="division-header">Boys / Men</h4>
+                <ul>
+                    <li>U10 Boys – 3 on 3</li>
+                    <li>U12 Boys – 3 on 3</li>
+                    <li>U14 Boys – 3 on 3</li>
+                    <li>U16 Boys – 5 on 5</li>
+                    <li>U18 Boys – 5 on 5</li>
+                    <li>18–24 Men – 5 on 5</li>
+                    <li>25+ Men – 5 on 5</li>
+                </ul>
+            </div>
+
+            <div class="division-column">
+                <h4 class="division-header">Girls / Women</h4>
+                <ul>
+                    <li>U10 Girls – 3 on 3</li>
+                    <li>U12 Girls – 3 on 3</li>
+                    <li>U14 Girls – 3 on 3</li>
+                    <li>U16 Girls – 3 on 3</li>
+                    <li>U18 Girls – 3 on 3</li>
+                    <li>18–24 Women – 3 on 3</li>
+                    <li>25+ Women – 3 on 3</li>
+                </ul>
+            </div>
         </div>
+
+        <p class="age-note">*Age as of December 31, 2026</p>
+    </div>
+
+    <!-- RIGHT COLUMN: Cost + Team Size -->
+    <div class="info-column">
+
+        <!-- Cost Box -->
+        <div class="info-card small">
+            <h3 class="info-title">Cost</h3>
+
+            <h4 class="sub-header">Individual (Free Agent)</h4>
+            <ul>
+                <li>3 on 3 – $99</li>
+                <li>5 on 5 – $149</li>
+            </ul>
+
+            <h4 class="sub-header">Team</h4>
+            <ul>
+                <li>3 on 3 – $99 × number of players</li>
+                <li>5 on 5 – $149 × number of players</li>
+            </ul>
+        </div>
+
+        <!-- Team Size Box -->
+        <div class="info-card small">
+            <h3 class="info-title">Team Size Minimum & Maximum</h3>
+
+            <ul>
+                <li>3 on 3 – 4 minimum, 5 maximum</li>
+                <li>5 on 5 – 8 minimum, 10 maximum</li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
 
         <!-- Deadline Banner -->
         <div class="deadline-banner">
