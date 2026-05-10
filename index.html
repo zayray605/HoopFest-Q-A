@@ -452,26 +452,26 @@
             <div class="division-column">
                 <h4 class="division-header">Boys / Men</h4>
                 <ul>
-                    <li>U10 Boys (Born 2017-2018) – 3 on 3</li>
-                    <li>U12 Boys (Born 2015-2016) – 3 on 3</li>
-                    <li>U14 Boys (Born 2013-2014) – 3 on 3</li>
-                    <li>U16 Boys (Born 2011-2012) – 5 on 5</li>
-                    <li>U18 Boys (Born 2009-2010) – 5 on 5</li>
-                    <li>18–24 Men (Born 2001-2008) – 5 on 5</li>
-                    <li>25+ Men (Born in 2000 and Before) - 5 on 5</li>
+                    <li>U10 Boys (Born 2017-2018) – 3v3</li>
+                    <li>U12 Boys (Born 2015-2016) – 3v3</li>
+                    <li>U14 Boys (Born 2013-2014) – 3v3</li>
+                    <li>U16 Boys (Born 2011-2012) – 5v5</li>
+                    <li>U18 Boys (Born 2009-2010) – 5v5</li>
+                    <li>18–24 Men (Born 2001-2008) – 5v5</li>
+                    <li>25+ Men (Born in 2000 and Before) - 5v5</li>
                 </ul>
             </div>
 
             <div class="division-column">
                 <h4 class="division-header">Girls / Women</h4>
                 <ul>
-                    <li>U10 Girls (Born 2017-2018) – 3 on 3</li>
-                    <li>U12 Girls (Born 2015-2016) – 3 on 3</li>
-                    <li>U14 Girls (Born 2013-2014) – 3 on 3</li>
-                    <li>U16 Girls (Born 2011-2012) – 3 on 3</li>
-                    <li>U18 Girls (Born 2009-2010) – 3 on 3</li>
-                    <li>18–24 Women (Born 2001-2008) – 3 on 3</li>
-                    <li>25+ Women (Born in 2000 and Before) – 3 on 3</li>
+                    <li>U10 Girls (Born 2017-2018) – 3v3</li>
+                    <li>U12 Girls (Born 2015-2016) – 3v3</li>
+                    <li>U14 Girls (Born 2013-2014) – 3v3</li>
+                    <li>U16 Girls (Born 2011-2012) – 3v3</li>
+                    <li>U18 Girls (Born 2009-2010) – 3v3</li>
+                    <li>18–24 Women (Born 2001-2008) – 3v3</li>
+                    <li>25+ Women (Born in 2000 and Before) – 3v3</li>
                 </ul>
             </div>
         </div>
@@ -651,6 +651,13 @@
                         <p>We are hoping to open up spots to the US Jamat in the coming weeks, should spaces still be available. Stay tuned for updates!</p>
                     </div>
                 </div>
+
+<div class="faq-item">
+                    <div class="faq-question">Is financial assistance available?</div>
+                    <div class="faq-answer">
+                        <p>Yes, please see the following link managed by national AKYSB: https://app.amilia.com/store/en/iicanada/shop/programs/115532</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Logistics -->
@@ -723,44 +730,34 @@
 </div>
 
     <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const wasOpen = item.classList.contains('open');
-                
-                // Close all items
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-                
-                // Open clicked item if it wasn't already open
-                if (!wasOpen) {
-                    item.classList.add('open');
+    /* FAQ Toggle — multiple items can stay open */
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            item.classList.toggle('open');
+        });
+    });
+
+    /* Category Filter Tabs */
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.dataset.category;
+
+            // Show/hide sections
+            document.querySelectorAll('.faq-section').forEach(section => {
+                if (category === 'all' || section.dataset.category === category) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
                 }
             });
         });
-
-        // Category Filter Tabs
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active tab
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const category = btn.dataset.category;
-                
-                // Show/hide sections
-                document.querySelectorAll('.faq-section').forEach(section => {
-                    if (category === 'all' || section.dataset.category === category) {
-                        section.classList.remove('hidden');
-                    } else {
-                        section.classList.add('hidden');
-                    }
-                });
-                
-                // Close all open items when switching
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
