@@ -415,6 +415,21 @@
     border: 1px solid rgba(255,255,255,0.2);
 }
 
+#cost-team-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sub-section-title {
+    font-size: 1.4rem;
+    font-weight: 900;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #00d4ff, #00aaff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
     </style>
 </head>
 <body>
@@ -479,35 +494,32 @@
         <p class="age-note">*Age as of December 31, 2026</p>
     </div>
 
-    <!-- RIGHT COLUMN: Cost + Team Size -->
-    <div class="info-column">
+   <!-- RIGHT COLUMN: Combined Cost + Team Size -->
+<div class="info-column">
 
-        <!-- Cost Box -->
-        <div class="info-card small">
-            <h3 class="info-title">Cost</h3>
+    <div class="info-card small" id="cost-team-box">
+        <h3 class="info-title">Cost</h3>
 
-            <h4 class="sub-header">Individual (Free Agent)</h4>
-            <ul>
-                <li>3 on 3 – $99</li>
-                <li>5 on 5 – $149</li>
-            </ul>
+        <h4 class="sub-header">Individual (Free Agent)</h4>
+        <ul>
+            <li>3 on 3 – $99</li>
+            <li>5 on 5 – $149</li>
+        </ul>
 
-            <h4 class="sub-header">Team</h4>
-            <ul>
-                <li>3 on 3 – $99 × number of players</li>
-                <li>5 on 5 – $149 × number of players</li>
-            </ul>
-        </div>
+        <h4 class="sub-header">Team</h4>
+        <ul>
+            <li>3 on 3 – $99 × number of players</li>
+            <li>5 on 5 – $149 × number of players</li>
+        </ul>
 
-        <!-- Team Size Box -->
-        <div class="info-card small">
-            <h3 class="info-title">Team Size Minimum & Maximum</h3>
+        <h3 class="info-title sub-section-title">Team Size Minimum & Maximum</h3>
+        <ul>
+            <li>3 on 3 – 4 minimum, 5 maximum</li>
+            <li>5 on 5 – 8 minimum, 10 maximum</li>
+        </ul>
+    </div>
 
-            <ul>
-                <li>3 on 3 – 4 minimum, 5 maximum</li>
-                <li>5 on 5 – 8 minimum, 10 maximum</li>
-            </ul>
-        </div>
+</div>
 
     </div>
 
